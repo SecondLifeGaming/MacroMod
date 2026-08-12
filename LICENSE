@@ -1,0 +1,49 @@
+Copyright (c) 2026 SecondLifeGaming. All rights reserved.
+
+===============================================================================
+LICENSE TERMS AND CONDITIONS
+===============================================================================
+
+1. SERVER COMPANION PLUGIN (`macromod-server/`) AND FREE CLIENT BINARIES:
+-------------------------------------------------------------------------------
+The server companion plugin source code located in `macromod-server/` and the
+compiled Free client binaries ("MacroMod Free") are licensed under the GNU
+General Public License v3.0 (GPLv3) or later.
+
+You are permitted to run, use, and inspect this software for personal or
+commercial server hosting. Under the terms of the GNU General Public License:
+- You MAY NOT distribute modified versions of the software under a proprietary
+  license.
+- Any modified versions or derivative works that you distribute MUST be made
+  available under the same GPLv3 terms.
+- You MAY NOT remove copyright notices or licensing headers from SecondLifeGaming.
+
+For the full GNU General Public License v3.0 text, please see:
+https://www.gnu.org/licenses/gpl-3.0.txt
+
+
+2. PROPRIETARY PREMIUM CLIENT MOD SOURCE CODE & PREMIUM BINARIES:
+-------------------------------------------------------------------------------
+The client-side mod source code (including private `/src/` directories) and
+compiled Premium binaries ("MacroMod Premium") are proprietary software owned
+exclusively by SecondLifeGaming.
+
+Permission is granted, solely upon valid purchase or authorized distribution by
+SecondLifeGaming, to run and execute the binary distribution for personal use.
+
+Strict Restrictions:
+- You MAY NOT modify, decompile, reverse engineer, disassemble, or derive source
+  code from the Premium client mod binaries.
+- You MAY NOT redistribute, re-license, sell, lease, or host public downloads
+  of the Premium client mod source code or binaries without explicit prior
+  written consent from SecondLifeGaming.
+- All rights not expressly granted herein are reserved by SecondLifeGaming.
+
+===============================================================================
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

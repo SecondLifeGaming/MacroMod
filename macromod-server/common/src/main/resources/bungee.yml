@@ -1,0 +1,6 @@
+name: MacroModServer
+version: 0.0.5
+main: com.github.westkevin12.macromod.server.MacroModServerPlugin
+author: SecondLifeGaming
+description: Universal companion server plugin for MacroMod client permissions and policy control.
+

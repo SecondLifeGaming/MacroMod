@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+allprojects {
+    group = 'com.github.westkevin12'
+    version = '0.0.5'
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.papermc.io/repository/maven-public/' }
+    }
+}
