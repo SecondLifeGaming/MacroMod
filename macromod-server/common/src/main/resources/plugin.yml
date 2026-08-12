@@ -1,0 +1,11 @@
+name: MacroModServer
+version: 0.0.4
+main: com.github.westkevin12.macromod.server.MacroModServerPlugin
+api-version: '26.1'
+description: Universal companion server plugin for MacroMod client permissions and policy control.
+author: westkevin12
+commands:
+  macromod:
+    description: MacroMod server administration and policy management command.
+    permission: macromod.admin
+    usage: /<command> [reload]

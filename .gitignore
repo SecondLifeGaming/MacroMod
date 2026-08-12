@@ -1,0 +1,41 @@
+# Gradle files
+.gradle/
+build/
+
+# Project files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+out/
+
+# Fabric Loom directories
+run/
+runClient/
+runServer/
+
+# Client Mod Source Code & Premium Jars
+src/
+*premium.jar
+hs_err_*.log
+replay_*.log
+
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+release/
+releases/
+TODO.md
+
+
+
+# Logs and temp files
+*.log
+.DS_Store
+Thumbs.db
+

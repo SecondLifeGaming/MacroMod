@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.84-stable'
+    compileOnly 'com.velocitypowered:velocity-api:4.0.0'
+    annotationProcessor 'com.velocitypowered:velocity-api:4.0.0'
+}
+
+tasks.named('jar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}

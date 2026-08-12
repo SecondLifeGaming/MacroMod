@@ -1,0 +1,10 @@
+{
+  "id": "macromodserver",
+  "name": "MacroModServer",
+  "version": "0.0.4",
+  "description": "Universal companion server plugin for MacroMod client permissions and policy control.",
+  "authors": [
+    "westkevin12"
+  ],
+  "main": "com.github.westkevin12.macromod.server.MacroModVelocityPlugin"
+}

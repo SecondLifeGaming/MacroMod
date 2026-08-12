@@ -1,0 +1,160 @@
+[SIZE=6][B]MC Macro Mod - Detailed Documentation[/B][/SIZE]
+
+[SIZE=5]► Configuration Breakdown[/SIZE]
+
+The configuration is saved in JSON format under [I].minecraft/config/macromod/config.json[/I]. Below is a detailed description of the parameters you can edit directly or configure via the in-game GUI:
+
+[SIZE=4][B]Default Keybindings & Controls[/B][/SIZE]
+[LIST]
+[*][B]Configuration GUI:[/B] Defaults to [B][CODE]`[/CODE][/B] (Grave Accent / Backtick). Opens the full in-game configuration manager.
+[*][B]Custom Button Overlay GUI:[/B] Defaults to [B][CODE]M[/CODE][/B]. Opens the transparent, clickable custom button overlay screen.
+[*][B]Emergency Kill Switch:[/B] Defaults to [B][CODE]K[/CODE][/B]. Immediately stops all active scripts and releases all held in-game keys (attack, movement, sneak, jump, etc.).
+[/LIST]
+
+[SIZE=4][B]1. Event Trigger Parameters[/B][/SIZE]
+[LIST]
+[*][B]durabilityThresholdPercent:[/B] The item durability percentage (0-100) below which the low-durability macro is triggered.
+[*][B]lowDurabilityCommand:[/B] The macro string (chat or command) to run when durability is low (e.g. [CODE]/fix all[/CODE]).
+[*][B]lowDurabilityActionEnabled:[/B] Toggle to enable/disable the low-durability trigger.
+[*][B]healthThresholdPercent:[/B] The health percentage (0-100) below which the low-health macro is triggered.
+[*][B]lowHealthCommand:[/B] The macro to run when health is low (e.g. [CODE]/heal[/CODE]).
+[*][B]lowHealthActionEnabled:[/B] Toggle to enable/disable the low-health trigger.
+[*][B]hungerThresholdLevel:[/B] The food level (0-20 half-hunger points) below which the hunger trigger fires.
+[*][B]lowHungerCommand:[/B] The macro to run when food is low.
+[*][B]lowHungerActionEnabled:[/B] Toggle to enable/disable the hunger trigger.
+[/LIST]
+
+[SIZE=4][B]2. Additional Event Triggers[/B][/SIZE]
+[LIST]
+[*][B]inventoryFullActionEnabled:[/B] If true, triggers when the main inventory has no free slots.
+[*][B]inventoryFullCommand:[/B] The macro to run on full inventory.
+[*][B]joinServerActionEnabled:[/B] If true, runs automatically when joining a server/world.
+[*][B]joinServerCommand:[/B] The macro to run upon server join.
+[*][B]deathActionEnabled:[/B] If true, triggers when the player dies.
+[*][B]deathCommand:[/B] The macro to run upon death.
+[*][B]respawnActionEnabled:[/B] If true, triggers when the player respawns after death.
+[*][B]respawnCommand:[/B] The macro to run upon respawning.
+[*][B]dimensionChangeActionEnabled:[/B] If true, triggers when moving to a new dimension.
+[*][B]dimensionChangeCommand:[/B] The macro to run on dimension change.
+[*][B]chatTriggerActionEnabled:[/B] If true, triggers when an incoming chat message matches a keyword.
+[*][B]chatTriggerFilter:[/B] The keyword/filter string to match in chat messages.
+[*][B]chatTriggerCommand:[/B] The macro to run when a chat match occurs.
+[*][B]containerOpenActionEnabled:[/B] If true, triggers when opening a container GUI.
+[*][B]containerOpenCommand:[/B] Macro to execute on container open.
+[*][B]containerCloseActionEnabled:[/B] If true, triggers when closing a container GUI.
+[*][B]containerCloseCommand:[/B] Macro to execute on container close.
+[*][B]takeDamageActionEnabled:[/B] If true, triggers when taking damage.
+[*][B]takeDamageCommand:[/B] Macro to execute when taking damage.
+[*][B]lowArmorActionEnabled:[/B] If true, triggers when armor durability falls below threshold %.
+[*][B]lowArmorThresholdPercent:[/B] Armor durability % threshold.
+[*][B]lowArmorCommand:[/B] Macro to execute on low armor.
+[*][B]lowAirActionEnabled:[/B] If true, triggers when remaining air % falls below threshold.
+[*][B]lowAirThresholdPercent:[/B] Air/oxygen % threshold.
+[*][B]lowAirCommand:[/B] Macro to execute on low air.
+[*][B]lowXpActionEnabled:[/B] If true, triggers when XP level falls below threshold.
+[*][B]lowXpThresholdLevel:[/B] XP level threshold integer.
+[*][B]lowXpCommand:[/B] Macro to execute on low XP level.
+[*][B]itemPickupActionEnabled:[/B] If true, triggers when picking up items.
+[*][B]itemPickupCommand:[/B] Macro to execute on item pickup.
+[*][B]inventoryChangeActionEnabled:[/B] If true, triggers when inventory content changes.
+[*][B]inventoryChangeCommand:[/B] Macro to execute on inventory change.
+[*][B]worldLoadActionEnabled:[/B] If true, triggers when loading a world or session.
+[*][B]worldLoadCommand:[/B] Macro to execute on world load.
+[/LIST]
+
+[CENTER]----------------------------------------------------------------[/CENTER]
+
+[SIZE=5]► Scripting Library & Advanced Syntax[/SIZE]
+
+Multi-line scripts are stored as [I].mcm[/I] files under [I].minecraft/config/macromod/scripts/[/I]. The interpreter reads scripts sequentially (one action line per game tick).
+
+[LIST]
+[*][CODE]{STASHALL}[/CODE] - Deposits main player inventory items into open container while protecting hotbar pickaxes & shovels.
+[*][CODE]{CHAT message}[/CODE] - Sends a chat message or server command with color formatting ([CODE]&a[/CODE] -> [CODE]§a[/CODE]).
+[*][CODE]{READFILE "file.txt" arrayVar}[/CODE] - Reads file lines into a named array variable.
+[*][CODE]{ARRAYSIZE arrayVar targetVar}[/CODE] - Stores array length into a target variable.
+[*][CODE]{GETARRAY arrayVar index targetVar}[/CODE] - Retrieves element by index into target variable.
+[*][CODE]{INVENTORYGETSLOT item_id varName}[/CODE] - Returns slot index holding item.
+[*][CODE]{GETHELDITEM varName}[/CODE] - Stores main-hand item name into variable.
+[*][CODE]{GETCONTAINERTITLE varName}[/CODE] - Stores open screen title into variable.
+[*][CODE]{SWAPSLOT from to}[/CODE] - Swaps two inventory slot positions.
+[*][CODE]{WAITUNTIL condition [timeout_ticks]}[/CODE] - Non-blocking wait until condition is true or optional timeout elapses.
+[*][CODE]{LOOKRANGE 87 93 -3 3}[/CODE] - Looks at a random spot within explicit min/max boundaries ([I]minYaw maxYaw minPitch maxPitch[/I]).
+[*][CODE]{LOOKRANDOM 90 0 3 3}[/CODE] (or [CODE]{LOOKVARIANCE}[/CODE]) - Looks at a random spot centered at ([I]90, 0[/I]) with ±3° yaw & pitch variance ([I]centerYaw centerPitch yawSpread pitchSpread[/I]).
+[*][CODE]{WAIT 20 50}[/CODE] or [CODE]{WAITRANDOM 20 50}[/CODE] - Waits a random duration between 20 and 50 ticks.
+[*][CODE]$random[/CODE] / [CODE]$rand[/CODE] - Built-in variable returning a random float between 0.0 and 1.0.
+[/LIST]
+
+[SIZE=4][B]Read-Only Player & World State Variables[/B][/SIZE]
+[LIST]
+[*][CODE]$isburning[/CODE], [CODE]$onfire[/CODE], [CODE]$isswimming[/CODE], [CODE]$eyeheight[/CODE] - Burn state, swimming state, and player eye height.
+[*][CODE]$xpos[/CODE], [CODE]$ypos[/CODE], [CODE]$zpos[/CODE] - Player's current coordinates.
+[*][CODE]$health[/CODE], [CODE]$maxhealth[/CODE] - Player's health stats.
+[*][CODE]$hunger[/CODE] - Player's food level (0-20).
+[*][CODE]$invfull[/CODE] - Returns 1 if inventory is full, 0 otherwise.
+[*][CODE]$speed[/CODE] - Player's current speed.
+[*][CODE]$durability[/CODE] - Held item durability percentage (0-100).
+[*][CODE]$offhanddurability[/CODE], [CODE]$helmetdurability[/CODE], [CODE]$chestdurability[/CODE], [CODE]$leggingsdurability[/CODE], [CODE]$bootsdurability[/CODE] - Armor/offhand durability percentages.
+[*][CODE]$targetname[/CODE], [CODE]$targethealth[/CODE], [CODE]$targetmaxhealth[/CODE] - Targeted block or mob name & health.
+[*][CODE]$iteminhand[/CODE], [CODE]$freeinventory[/CODE] - Name of held item and number of free inventory slots.
+[*][CODE]$israining[/CODE], [CODE]$isnight[/CODE], [CODE]$blockbelow[/CODE] - Weather boolean, night boolean, and block underneath player.
+[*][CODE]$biome[/CODE], [CODE]$dimension[/CODE], [CODE]$server[/CODE] - Current biome, dimension, and server IP.
+[*][CODE]$fps[/CODE], [CODE]$ping[/CODE], [CODE]$time[/CODE], [CODE]$light[/CODE] - Frames per second, latency, world time, and light level.
+[*][CODE]$yaw[/CODE], [CODE]$pitch[/CODE], [CODE]$slot[/CODE], [CODE]$mainhand[/CODE], [CODE]$offhand[/CODE] - Orientation, hotbar slot index, main hand item name, and off hand item name.
+[*][CODE]$level[/CODE], [CODE]$xp[/CODE], [CODE]$xpprogress[/CODE], [CODE]$xppercent[/CODE] - Player experience level and level progress %.
+[*][CODE]$air[/CODE], [CODE]$oxygen[/CODE], [CODE]$maxair[/CODE] - Remaining air supply and max air supply.
+[*][CODE]$saturation[/CODE], [CODE]$armor[/CODE] - Food saturation level and total armor protection points.
+[*][CODE]$facing[/CODE], [CODE]$direction[/CODE], [CODE]$gamemode[/CODE], [CODE]$difficulty[/CODE], [CODE]$weather[/CODE] - Direction facing, gamemode, difficulty, and weather string.
+[*][CODE]$isthundering[/CODE], [CODE]$underwater[/CODE], [CODE]$onground[/CODE], [CODE]$isriding[/CODE], [CODE]$issneaking[/CODE], [CODE]$issprinting[/CODE], [CODE]$isflying[/CODE] - Player and world state booleans (1 or 0).
+[*][CODE]$playername[/CODE], [CODE]$username[/CODE] - Player username string.
+[/LIST]
+
+[SIZE=4][B]Control Flow[/B][/SIZE]
+[LIST]
+[*][B]While Loops:[/B]
+[CODE]
+while $health > 10
+    # Loop body
+endwhile
+[/CODE]
+[*][B]If/Else Conditionals:[/B]
+[CODE]
+if $durability < 20
+    /say Durability critical!
+else
+    /say All good!
+endif
+[/CODE]
+[*][B]Helper Commands:[/B]
+[LIST]
+[*][CODE]stop[/CODE] - Stops the current script immediately.
+[*][CODE]stopall[/CODE] - Stops all running scripts immediately.
+[*][CODE]call <script_name>[/CODE] - Runs a separate script file asynchronously.
+[/LIST]
+[/LIST]
+
+[SIZE=4][B]LuckPerms Integration & Server Meta-Keys[/B][/SIZE]
+Server admins running the [CODE]macromod-server[/CODE] companion plugin with LuckPerms installed can set granular per-group or per-player permission overrides using standard LuckPerms meta commands:
+[LIST]
+[*][CODE]/lp group default meta set macromod.allowMovement false[/CODE] - Disables movement automation macros for default group.
+[*][CODE]/lp group vip meta set macromod.allowScriptFiles true[/CODE] - Enables script files for VIP group.
+[*][CODE]/lp user <player> meta set macromod.chatRateLimitMs 2000[/CODE] - Sets a 2000ms chat rate limit for a specific player.
+[*][B]Supported Meta Flags:[/B] [CODE]macromod.allowMovement[/CODE], [CODE]macromod.allowLook[/CODE], [CODE]macromod.allowInventoryAutomation[/CODE], [CODE]macromod.allowScriptFiles[/CODE], [CODE]macromod.allowLooping[/CODE], [CODE]macromod.maxLoopIterations[/CODE], [CODE]macromod.chatRateLimitMs[/CODE], [CODE]macromod.commandRateLimitMs[/CODE], [CODE]macromod.allowEventTriggers[/CODE].
+[/LIST]
+
+[CENTER]----------------------------------------------------------------[/CENTER]
+
+[SIZE=5]► Key Combinations & Keycodes[/SIZE]
+
+Key IDs follow the GLFW keycode standard. 
+Modifiers are represented by adding a bitmask prefix:
+[LIST]
+[*][B]Shift:[/B] Adds 1
+[*][B]Ctrl:[/B] Adds 2
+[*][B]Alt:[/B] Adds 4
+[/LIST]
+For example, pressing [B]Ctrl + Space[/B] (GLFW Key 32) creates the key identifier: [CODE]KEY_32_MOD_2[/CODE].
+You can find a complete listing of keycodes in the [I]KEYCODE.md[/I] file in the mod folder.
+
+[CENTER]----------------------------------------------------------------[/CENTER]
+[I]For support, suggestions, or reporting issues, please contact the developer via the official Spigot or Modrinth resource channels.[/I]
