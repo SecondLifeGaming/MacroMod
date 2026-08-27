@@ -1,6 +1,6 @@
 # MacroModServer: Universal Companion Server Plugin
 
-**MacroModServer** is the official server-side companion plugin for [MacroMod](file:///home/west/github.com/westkevin12/MacroMod/README.md). It provides server administrators with granular policy controls, rate limiting, and permission management for players running the MacroMod Fabric client mod.
+**MacroModServer** is the official server-side companion plugin for [MacroMod](file:///home/west/github.com/secondlifegaming/MacroMod/README.md). It provides server administrators with granular policy controls, rate limiting, and permission management for players running the MacroMod Fabric client mod.
 
 ---
 

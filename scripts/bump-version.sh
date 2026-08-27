@@ -15,8 +15,8 @@ sed -i "s/mod_version = .*/mod_version = ${NEW_VER}/" gradle.properties
 if [ -f "src/main/resources/fabric.mod.json" ]; then
     sed -i "s/\"version\": \".*\"/\"version\": \"${NEW_VER}\"/" src/main/resources/fabric.mod.json
 fi
-if [ -f "src/main/java/com/github/westkevin12/macromod/MacroModClient.java" ]; then
-    sed -i "s/\.orElse(\".*\")/\.orElse(\"${NEW_VER}\")/" src/main/java/com/github/westkevin12/macromod/MacroModClient.java
+if [ -f "src/main/java/com/github/secondlifegaming/macromod/MacroModClient.java" ]; then
+    sed -i "s/\.orElse(\".*\")/\.orElse(\"${NEW_VER}\")/" src/main/java/com/github/secondlifegaming/macromod/MacroModClient.java
 fi
 
 if [ -f "macromod-server/build.gradle" ]; then
@@ -34,8 +34,8 @@ fi
 if [ -f "macromod-server/common/src/main/resources/velocity-plugin.json" ]; then
     sed -i "s/\"version\": \".*\"/\"version\": \"${NEW_VER}\"/" macromod-server/common/src/main/resources/velocity-plugin.json
 fi
-if [ -f "macromod-server/common/src/main/java/com/github/westkevin12/macromod/server/MacroModVelocityPlugin.java" ]; then
-    sed -i "s/version = \".*\"/version = \"${NEW_VER}\"/" macromod-server/common/src/main/java/com/github/westkevin12/macromod/server/MacroModVelocityPlugin.java
+if [ -f "macromod-server/common/src/main/java/com/github/secondlifegaming/macromod/server/MacroModVelocityPlugin.java" ]; then
+    sed -i "s/version = \".*\"/version = \"${NEW_VER}\"/" macromod-server/common/src/main/java/com/github/secondlifegaming/macromod/server/MacroModVelocityPlugin.java
 fi
 
 

@@ -1,4 +1,4 @@
-package com.github.westkevin12.macromod.server.common;
+package com.github.secondlifegaming.macromod.server.common;
 
 public class ServerPolicy {
     public int version = 1;

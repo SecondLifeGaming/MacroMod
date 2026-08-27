@@ -71,6 +71,11 @@ Multi-line scripts are stored as [I].mcm[/I] files under [I].minecraft/config/ma
 [LIST]
 [*][CODE]{STASHALL}[/CODE] - Deposits main player inventory items into open container while protecting hotbar pickaxes & shovels.
 [*][CODE]{CHAT message}[/CODE] - Sends a chat message or server command with color formatting ([CODE]&a[/CODE] -> [CODE]§a[/CODE]).
+[*][CODE]inc var [step][/CODE] / [CODE]dec var [step][/CODE] - Increments or decrements variable by step amount.
+[*][CODE]add var val[/CODE], [CODE]sub var val[/CODE], [CODE]mul var val[/CODE], [CODE]div var val[/CODE], [CODE]mod var val[/CODE] - Native arithmetic operations.
+[*][CODE]concat(target, s1, s2)[/CODE], [CODE]substr(var, start, len)[/CODE], [CODE]length(target, var)[/CODE] - String manipulation.
+[*][CODE]lower(var)[/CODE], [CODE]upper(var)[/CODE] - Case conversion.
+[*][CODE]arraypush(arr, val)[/CODE], [CODE]arraypop(arr, [target])[/CODE], [CODE]arrayclear(arr)[/CODE], [CODE]arraycontains(arr, val, target)[/CODE] - Array operations.
 [*][CODE]{READFILE "file.txt" arrayVar}[/CODE] - Reads file lines into a named array variable.
 [*][CODE]{ARRAYSIZE arrayVar targetVar}[/CODE] - Stores array length into a target variable.
 [*][CODE]{GETARRAY arrayVar index targetVar}[/CODE] - Retrieves element by index into target variable.

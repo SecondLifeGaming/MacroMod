@@ -1,5 +1,18 @@
 [SIZE=6][B]MC Macro Mod - Release Notes[/B][/SIZE]
 
+[SIZE=5][B]Version 0.0.6[/B][/SIZE]
+
+### 🚀 Package Migration, Type-Safe Scripting Engine & Library Overhaul
+[LIST]
+[*][B]Package Namespace Migration:[/B] Refactored all Java classes, plugin descriptors ([CODE]fabric.mod.json[/CODE], [CODE]plugin.yml[/CODE], [CODE]paper-plugin.yml[/CODE], [CODE]bungee.yml[/CODE], [CODE]velocity-plugin.json[/CODE]), scripts, and build configs to [CODE]com.github.secondlifegaming.macromod[/CODE].
+[*][B]Type-Safe Variable Model ([CODE]ScriptValue[/CODE]):[/B] Replaced split disconnected maps with a unified, type-safe [CODE]ScriptValue[/CODE] model ([CODE]NUMBER[/CODE], [CODE]STRING[/CODE], [CODE]BOOLEAN[/CODE], [CODE]ARRAY[/CODE]), eliminating variable shadowing bugs.
+[*][B]Parameterized [CODE]INC[/CODE] & [CODE]DEC[/CODE]:[/B] Updated [CODE]inc[/CODE] and [CODE]dec[/CODE] to support optional custom step values: [CODE]inc counter 5[/CODE], [CODE]inc counter $step[/CODE], [CODE]dec health 10[/CODE].
+[*][B]Native Math Instructions:[/B] Added native arithmetic operations [CODE]add[/CODE], [CODE]sub[/CODE] / [CODE]subtract[/CODE], [CODE]mul[/CODE] / [CODE]multiply[/CODE], [CODE]div[/CODE] / [CODE]divide[/CODE], and [CODE]mod[/CODE].
+[*][B]String & Array Functions:[/B] Added string manipulation ([CODE]concat[/CODE], [CODE]substr[/CODE], [CODE]length[/CODE], [CODE]lower[/CODE], [CODE]upper[/CODE]) and array management ([CODE]arraypush[/CODE], [CODE]arraypop[/CODE], [CODE]arrayclear[/CODE], [CODE]arraycontains[/CODE]).
+[/LIST]
+
+[CENTER]----------------------------------------------------------------[/CENTER]
+
 [SIZE=5][B]Version 0.0.5[/B][/SIZE]
 [I][B]Note:[/B] Version 0.0.5 marks the final alpha development milestone. MacroMod and the macromod-server companion ecosystem are feature-complete and preparing for upcoming public Beta releases.[/I]
 

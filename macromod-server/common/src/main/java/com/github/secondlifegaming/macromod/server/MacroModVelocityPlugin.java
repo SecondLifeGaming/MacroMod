@@ -1,6 +1,6 @@
-package com.github.westkevin12.macromod.server;
+package com.github.secondlifegaming.macromod.server;
 
-import com.github.westkevin12.macromod.server.common.ServerPolicy;
+import com.github.secondlifegaming.macromod.server.common.ServerPolicy;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 @Plugin(
     id = "macromodserver",
     name = "MacroModServer",
-    version = "0.0.5",
+    version = "0.0.6",
     description = "Universal companion server plugin for MacroMod client permissions and policy control.",
     authors = {"SecondLifeGaming", "westkevin12"}
 )

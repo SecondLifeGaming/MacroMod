@@ -48,7 +48,7 @@ Script macros can execute chat messages, server commands, or simulated player ac
   - *Example*: `{LEFTCLICK} | {WAIT 10} | {LEFTCLICK}`
 * **`{RIGHTCLICK}`**: Simulates a right-click / item-use once.
   - *Example*: `{RIGHTCLICK}`
-* **`{SLOTCLICK slot [button] [type]}`**: Simulates clicking a specific container or inventory slot ID (see [SLOTMAP.md](file:///home/west/github.com/westkevin12/MacroMod/SLOTMAP.md) for full slot index diagrams).
+* **`{SLOTCLICK slot [button] [type]}`**: Simulates clicking a specific container or inventory slot ID (see [SLOTMAP.md](file:///home/west/github.com/secondlifegaming/MacroMod/SLOTMAP.md) for full slot index diagrams).
   - *Example*: `{SLOTCLICK 0}` (left clicks slot 0), `{SLOTCLICK 0 1}` (right clicks slot 0), `{SLOTCLICK 0 0 QUICK_MOVE}` (shift clicks slot 0)
 * **`{SHIFTCLICK slot}`**: Quick shortcut to shift-click an inventory or chest slot.
   - *Example*: `{SHIFTCLICK 0}`
@@ -110,7 +110,11 @@ For longer, more complex automation, you can create multi-line scripts inside th
   - **`for var start end` ... `endfor`**: Iterates a numeric variable from `start` to `end`.
   - **`break` / `continue`**: Exits loop early or skips directly to next iteration.
   - **`if condition` ... `else` ... `endif`**: Conditional execution block. Supports numeric comparisons and string equality comparisons (e.g. `if $dimension == "minecraft:the_nether"`).
-  - **`set varName value` / `random varName min max` / `increment varName` / `decrement varName`**: Manage user-defined variables.
+  - **`set varName value` / `random varName min max`**: Manage user-defined variables.
+  - **`inc varName [step]` / `dec varName [step]`**: Increments or decrements a variable by step amount (e.g. `inc counter 5`, `dec health 10`).
+  - **`add varName val` / `sub varName val` / `mul varName val` / `div varName val` / `mod varName val`**: Native arithmetic instructions.
+  - **String Functions**: `concat(targetVar, str1, str2)`, `substr(targetVar, start, length)`, `length(targetVar, target)`, `lower(var)`, `upper(var)`.
+  - **Array Functions**: `arraypush(arrayVar, value)`, `arraypop(arrayVar, [targetVar])`, `arrayclear(arrayVar)`, `arraycontains(arrayVar, value, targetVar)`.
   - *Read-only player & world variables*: `$isburning`, `$onfire`, `$isswimming`, `$eyeheight`, `$health`, `$maxhealth`, `$xpos`, `$ypos`, `$zpos`, `$hunger`, `$invfull`, `$speed`, `$durability`, `$offhanddurability`, `$helmetdurability`, `$chestdurability`, `$leggingsdurability`, `$bootsdurability`, `$hasgui`, `$containeropen`, `$targettype` (0=Air, 1=Block, 2=Entity), `$targetdist`, `$targetx`, `$targety`, `$targetz`, `$targetname`, `$targethealth`, `$targetmaxhealth`, `$iteminhand`, `$freeinventory`, `$israining`, `$isnight`, `$blockbelow`, `$biome`, `$dimension`, `$server`, `$fps`, `$ping`, `$yaw`, `$pitch`, `$slot`, `$mainhand`, `$offhand`, `$time`, `$light`, `$level`, `$xp`, `$xpprogress`, `$xppercent`, `$air`, `$oxygen`, `$maxair`, `$saturation`, `$armor`, `$isthundering`, `$underwater`, `$onground`, `$isriding`, `$issneaking`, `$issprinting`, `$isflying`, `$facing`, `$direction`, `$gamemode`, `$difficulty`, `$weather`, `$playername`, `$username`, `$random` / `$rand`.
 * **Calling Scripts (Subroutines)**:
   - **From an Inline Macro / Keybind**: Use `{CALL script_name}` (e.g. `{CALL test}`).
@@ -145,7 +149,7 @@ Configure auto-actions based on real-time game events under the **Event Triggers
 
 MacroMod features built-in server compliance & policy controls:
 * **Server-Safe Mode**: A user-configurable toggle in settings (`serverSafeMode`) that caps loop iterations, limits chat message rates, and disables movement/inventory automation when connected to public servers.
-* **Universal Companion Plugin (`macromod-server`)**: Server admins can drop the companion plugin into Paper, Folia, Velocity, or BungeeCord servers to push granular policy flags (`macromod:policy` channel) to MacroMod clients upon join. See [macromod-server/README.md](file:///home/west/github.com/westkevin12/MacroMod/macromod-server/README.md) for full server plugin documentation.
+* **Universal Companion Plugin (`macromod-server`)**: Server admins can drop the companion plugin into Paper, Folia, Velocity, or BungeeCord servers to push granular policy flags (`macromod:policy` channel) to MacroMod clients upon join. See [macromod-server/README.md](file:///home/west/github.com/secondlifegaming/MacroMod/macromod-server/README.md) for full server plugin documentation.
 * **LuckPerms Meta Keys**: Server admins running LuckPerms can configure per-player or per-group policy overrides using LuckPerms meta commands:
   - `/lp group default meta set macromod.allowMovement false`
   - `/lp user <player> meta set macromod.chatRateLimitMs 2000`
@@ -167,14 +171,14 @@ MacroMod features built-in server compliance & policy controls:
 
 ## 📌 Troubleshooting & Known Issues
 
-For troubleshooting common issues, keybind conflicts, server policy flags, or reporting bugs for both the client mod and server companion plugin, please see [.github/ISSUES.md](file:///home/west/github.com/westkevin12/MacroMod/.github/ISSUES.md).
+For troubleshooting common issues, keybind conflicts, server policy flags, or reporting bugs for both the client mod and server companion plugin, please see [.github/ISSUES.md](file:///home/west/github.com/secondlifegaming/MacroMod/.github/ISSUES.md).
 
 ---
 
 ## 🛠️ Repository & Building
 
-* **Server Companion Plugin Source**: The source code for `macromod-server` is open-source under [macromod-server/](file:///home/west/github.com/westkevin12/MacroMod/macromod-server/README.md).
-* **Client Mod Releases**: Compiled Free JAR releases are stored in the [release/](file:///home/west/github.com/westkevin12/MacroMod/release) folder. Client mod source code (`src/`) and premium builds are private and gitignored.
+* **Server Companion Plugin Source**: The source code for `macromod-server` is open-source under [macromod-server/](file:///home/west/github.com/secondlifegaming/MacroMod/macromod-server/README.md).
+* **Client Mod Releases**: Compiled Free JAR releases are stored in the [release/](file:///home/west/github.com/secondlifegaming/MacroMod/release) folder. Client mod source code (`src/`) and premium builds are private and gitignored.
 
 ### Build Server Plugin:
 ```bash

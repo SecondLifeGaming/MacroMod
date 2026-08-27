@@ -79,7 +79,8 @@ Automate your actions with real-time state tracking across **18 trigger types**:
 Write `.mcm` script files in the **Scripts** tab to unlock advanced programmatic control:
 * **While Loops & Break/Continue**: `while $health > 10` ... `break` ... `endwhile`
 * **If/Else Conditionals**: `if $dimension == "minecraft:the_nether"` ... `else` ... `endif`
-* **Custom & Built-in Variables**: Track user variables (`set`, `increment`, `decrement`, `random`) or read live player stats (`$isburning`, `$isswimming`, `$eyeheight`, `$xpos`, `$ypos`, `$zpos`, `$health`, `$maxhealth`, `$hunger`, `$level`, `$xp`, `$air`, `$facing`, `$gamemode`, `$durability`, `$offhanddurability`, etc.).
+* **Custom & Built-in Variables**: Track user variables (`set`, `inc var [step]`, `dec var [step]`, `add`, `sub`, `mul`, `div`, `mod`, `random`) or read live player stats (`$isburning`, `$isswimming`, `$eyeheight`, `$xpos`, `$ypos`, `$zpos`, `$health`, `$maxhealth`, `$hunger`, `$level`, `$xp`, `$air`, `$facing`, `$gamemode`, `$durability`, `$offhanddurability`, etc.).
+* **String & Array Functions**: `concat`, `substr`, `length`, `lower`, `upper`, `arraypush`, `arraypop`, `arrayclear`, `arraycontains`.
 
 ---
 

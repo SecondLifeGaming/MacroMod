@@ -1,6 +1,6 @@
-package com.github.westkevin12.macromod.server;
+package com.github.secondlifegaming.macromod.server;
 
-import com.github.westkevin12.macromod.server.common.ServerPolicy;
+import com.github.secondlifegaming.macromod.server.common.ServerPolicy;
 import com.google.gson.Gson;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

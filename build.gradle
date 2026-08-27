@@ -50,11 +50,11 @@ java {
 def generateBuildConfig = tasks.register("generateBuildConfig") {
     def isPremium = project.hasProperty("premium") ? project.property("premium").toString().toBoolean() : false
     inputs.property("premium", isPremium)
-    def outputDir = file("$buildDir/generated/sources/buildconfig/java/main/com/github/westkevin12/macromod")
+    def outputDir = file("$buildDir/generated/sources/buildconfig/java/main/com/github/secondlifegaming/macromod")
     outputs.dir(outputDir)
     doLast {
         outputDir.mkdirs()
-        new File(outputDir, "BuildConfig.java").text = """package com.github.westkevin12.macromod;
+        new File(outputDir, "BuildConfig.java").text = """package com.github.secondlifegaming.macromod;
 
 public class BuildConfig {
     public static final boolean IS_PREMIUM = ${isPremium};
