@@ -57,7 +57,18 @@ else
     NOTES_ARG=(--notes "MacroMod ${TAG} Release")
 fi
 
-# 6. Check if release already exists on GitHub
+# 6. Ensure annotated git tag exists locally and is pushed to remote
+if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+    echo "🏷️ Creating local GPG-signed tag ${TAG}..."
+    git tag -s "$TAG" -m "MacroMod ${TAG} Release"
+fi
+
+if ! git ls-remote --tags origin | grep -q "refs/tags/${TAG}"; then
+    echo "📤 Pushing tag ${TAG} to remote..."
+    git push origin "$TAG"
+fi
+
+# 7. Check if release already exists on GitHub
 if gh release view "$TAG" &>/dev/null; then
     echo "⚠️ Release $TAG already exists on GitHub. Uploading / overwriting assets..."
     gh release upload "$TAG" "$FREE_JAR" "$SERVER_JAR" --clobber
