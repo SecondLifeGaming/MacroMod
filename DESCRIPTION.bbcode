@@ -1,27 +1,26 @@
 [SIZE=6][B]MC Macro Mod[/B][/SIZE]
 
-[SIZE=4][B]MC Macro Mod[/B] is a highly versatile, premium client-side automation utility for Minecraft Fabric. Designed to put complete control in the hands of power users and administrators, it allows you to bind custom scripting macros to keys, mouse clicks, automated event triggers, and custom draggable buttons on a HUD overlay.[/SIZE]
+[SIZE=4][B]MC Macro Mod[/B] is a client-side command shortcut and keybinding utility for Minecraft Fabric. Designed for convenience and productivity, it allows you to bind custom server commands, chat shortcuts, and inline macro sequences to keys, mouse clicks, or custom draggable HUD overlay buttons.[/SIZE]
 
-[SIZE=4]Whether you need simple shortcut commands, rapid keypress combinations, or complex multi-line logic with conditions and loops, MC Macro Mod provides a native, seamless, and high-performance execution engine directly in your Minecraft client.[/SIZE]
+[SIZE=4]Whether you need quick shortcut commands ([CODE]/home[/CODE], [CODE]/warp[/CODE], [CODE]/pay[/CODE]), interactive user prompts ([CODE]$$?[/CODE]), or custom HUD action panels, MC Macro Mod provides a native execution engine directly in your Minecraft client.[/SIZE]
 
 [CENTER]----------------------------------------------------------------[/CENTER]
 
-[SIZE=5][B]⚙️ Core Features[/B][/SIZE]
+[SIZE=5][B]Free Edition Features[/B][/SIZE]
 [LIST]
 [*][B]Visual Key Bindings Visualizer:[/B] A complete visual keyboard interface to easily click and bind commands or actions to any key, mouse button, or modifier combination.
+[*][B]Inline Macro Execution:[/B] Bind chained actions or commands separated by [I]|[/I] to any hotkey or mouse button.
 [*][B]Emergency Kill Switch (K Key):[/B] Instantly halts all active macros and releases all held key states (attacking, sneaking, movement, etc.).
-[*][B]On Press & On Release Bindings:[/B] Bind distinct actions to a single key—one that triggers immediately when pressed down, and another that triggers when released (perfect for movement or toggle switches).
-[*][B]Automated Event Triggers:[/B] Automatically execute macros in response to [B]18[/B] live player events — low durability (main-hand & off-hand), low health, low hunger, inventory full, item pickup, inventory slot change, world/dimension load, join server, death, respawn, dimension change, chat keyword match, GUI open/close, on damage taken, low armor, low air, and low XP.
-[*][B]Server Compliance & Permissions ([CODE]macromod:policy[/CODE]):[/B] Built-in Server-Safe Mode toggle and custom payload integration with [CODE]macromod-server[/CODE] companion plugin (supporting LuckPerms meta keys [CODE]macromod.<flag>[/CODE]) for server admin policy enforcement.
+[*][B]On Press & On Release Bindings:[/B] Bind distinct actions to a single key—one that triggers immediately when pressed down, and another that triggers when released.
 [*][B]Draggable HUD Overlay:[/B] Create custom, clickable button panels that can be dragged anywhere on the screen and triggered with a click ([B]M[/B] key) during gameplay.
-[*][B]Multi-Line Scripting & Subroutines:[/B] Write complex scripts with logic, loops ([CODE]break[/CODE]/[CODE]continue[/CODE]), custom variables, string equality conditions ([CODE]if $dimension == "minecraft:the_nether"[/CODE]), line reordering ([B]▲/▼[/B] buttons), and subroutine calls.
 [*][B]Interactive Prompt Placeholders:[/B] Build macros that pause execution and prompt the user for input ([CODE]$$?[/CODE] or [CODE]$$[Prompt Label][/CODE]) before running.
+[*][B]Server Compliance & Permissions ([CODE]macromod:policy[/CODE]):[/B] Built-in Server-Safe Mode toggle and custom payload integration with [CODE]macromod-server[/CODE] companion plugin (with LuckPerms meta-key support [CODE]macromod.<flag>[/CODE]) for server admin policy enforcement.
 [/LIST]
 
 [CENTER]----------------------------------------------------------------[/CENTER]
 
-[SIZE=5][B]📜 Macro Scripting Syntax[/B][/SIZE]
-[SIZE=4]Script macros can run server commands, chat messages, or simulate hardware actions. Chained commands are separated by [I]|[/I] in inline macros, while script files run sequentially line-by-line.[/SIZE]
+[SIZE=5][B]Macro Scripting Syntax[/B][/SIZE]
+[SIZE=4]Script macros can run server commands, chat messages, or simulate hardware actions. Chained commands are separated by [I]|[/I] in inline macros.[/SIZE]
 
 [SIZE=4][B]Special Actions[/B][/SIZE]
 [LIST]
@@ -30,20 +29,16 @@
 [*][CODE]{LOOKRANGE minYaw maxYaw minPitch maxPitch}[/CODE] - Face a random direction bounded by min/max boundaries.
 [*][CODE]{LOOKRANDOM centerYaw centerPitch yawSpread pitchSpread}[/CODE] - Face a random direction centered at target angle with ±spread variance. (Aliases: [CODE]{LOOKVARIANCE}[/CODE], [CODE]{LOOKSPREAD}[/CODE], [CODE]{LOOKOFFSET}[/CODE]).
 [*][CODE]{LEFTCLICK}[/CODE] / [CODE]{RIGHTCLICK}[/CODE] - Simulates mouse clicks.
-[*][CODE]{STASHALL}[/CODE] - Deposits main player inventory items into open container while protecting hotbar pickaxes & shovels.
-[*][CODE]{CHAT message}[/CODE] - Sends a chat message or server command with color formatting ([CODE]&a[/CODE] -> [CODE]§a[/CODE]).
-[*][CODE]{READFILE "file.txt" arrayVar}[/CODE] - Reads file lines into a named array variable.
-[*][CODE]{ARRAYSIZE arrayVar targetVar}[/CODE] - Stores array length into a target variable.
-[*][CODE]{GETARRAY arrayVar index targetVar}[/CODE] - Retrieves element by index into target variable.
+[*][CODE]{STASHALL}[/CODE] - Automatically deposits main player inventory items into open container/vault screens while protecting hotbar tools (pickaxes & shovels).
+[*][CODE]{CHAT message}[/CODE] - Sends a chat message or server command (supports Minecraft color codes like [CODE]&a[/CODE] -> [CODE]§a[/CODE]).
 [*][CODE]{INVENTORYGETSLOT item_id varName}[/CODE] - Returns slot index holding item.
 [*][CODE]{GETHELDITEM varName}[/CODE] - Stores main-hand item name into variable.
 [*][CODE]{GETCONTAINERTITLE varName}[/CODE] - Stores open screen title into variable.
-[*][CODE]{SWAPSLOT from to}[/CODE] - Swaps two inventory slot positions.
-[*][CODE]{KEY key}[/CODE] / [CODE]{KEYDOWN key}[/CODE] / [CODE]{KEYUP key}[/CODE] - Simulates tapping or holding keyboard keys [B]and mouse buttons[/B]. Accepts GLFW codes, key names ([CODE]A[/CODE], [CODE]SPACE[/CODE]), mouse codes ([CODE]-100[/CODE], [CODE]-101[/CODE]), or action aliases ([CODE]attack[/CODE], [CODE]use[/CODE], [CODE]jump[/CODE], [CODE]sneak[/CODE], [CODE]sprint[/CODE], [CODE]forward[/CODE], [CODE]back[/CODE]).
+[*][CODE]{SWAPSLOT from to}[/CODE] - Quick-swaps two inventory slot positions.
+[*][CODE]{KEY key}[/CODE] / [CODE]{KEYDOWN key}[/CODE] / [CODE]{KEYUP key}[/CODE] - Simulates tapping or holding keyboard keys [B]and mouse buttons[/B]. Accepts GLFW key codes, key names ([CODE]A[/CODE], [CODE]SPACE[/CODE], [CODE]ENTER[/CODE]), mouse codes ([CODE]-100[/CODE], [CODE]-101[/CODE]), or action aliases ([CODE]attack[/CODE], [CODE]use[/CODE], [CODE]jump[/CODE], [CODE]sneak[/CODE], [CODE]sprint[/CODE], [CODE]forward[/CODE], [CODE]back[/CODE]).
 [*][CODE]{OPENSCREEN}[/CODE] / [CODE]{OPENOVERLAY}[/CODE] - Opens the configuration GUI (default [CODE]`[/CODE]) or custom buttons overlay (default [CODE]M[/CODE]).
 [*][CODE]{STOP}[/CODE] / [CODE]{STOP ALL}[/CODE] / [CODE]{STOPALL}[/CODE] - Immediately stops script execution and releases all held keys.
 [*][CODE]{ECHO message}[/CODE] - Prints a local client-only system message.
-[*][CODE]{CALL script_name}[/CODE] - Invokes a multi-line script from the script library.
 [/LIST]
 
 [SIZE=4][B]User Input[/B][/SIZE]
@@ -54,41 +49,10 @@
 
 [CENTER]----------------------------------------------------------------[/CENTER]
 
-[SIZE=5][B]🚨 Event Triggers[/B][/SIZE]
-[SIZE=4]Automate your actions with real-time state tracking across [B]18 trigger types[/B]:[/SIZE]
-[OL]
-[*][B]Durability:[/B] Triggers when held item durability drops below a % threshold.
-[*][B]Health:[/B] Triggers when player health falls below a % threshold.
-[*][B]Hunger:[/B] Triggers when hunger level drops below a configurable level (out of 20).
-[*][B]Inventory Full:[/B] Triggers when the inventory has no empty slots remaining.
-[*][B]Item Pickup:[/B] Triggers when a new item stack is picked up.
-[*][B]Inventory Change:[/B] Triggers on any inventory slot modification.
-[*][B]World Load:[/B] Triggers when loading into a world, server session, or dimension re-entry.
-[*][B]Join Server:[/B] Runs a command or script automatically upon joining a world or server.
-[*][B]On Death:[/B] Runs a command or script immediately upon dying.
-[*][B]On Respawn:[/B] Triggers once upon respawning after death.
-[*][B]Dimension Change:[/B] Triggers when entering a new dimension (Overworld, Nether, End).
-[*][B]Chat Filter:[/B] Triggers when an incoming chat message matches a configurable keyword.
-[*][B]Open GUI:[/B] Triggers when a container or inventory screen is opened.
-[*][B]Close GUI:[/B] Triggers when a container or inventory screen is closed.
-[*][B]On Damage:[/B] Triggers whenever the player takes any damage.
-[*][B]Low Armor:[/B] Triggers when any equipped armor piece drops below a durability % threshold.
-[*][B]Low Air:[/B] Triggers when remaining air/oxygen drops below % threshold.
-[*][B]Low XP:[/B] Triggers when experience level drops below threshold.
-[/OL]
-
-[CENTER]----------------------------------------------------------------[/CENTER]
-
-[SIZE=5][B]📁 Script Library[/B][/SIZE]
-[SIZE=4]Write [I].mcm[/I] script files in the [B]Scripts[/B] tab to unlock advanced programmatic control:[/SIZE]
+[SIZE=5][B]Premium Edition[/B][/SIZE]
+[SIZE=4]For power users and advanced server automation, the [B]Premium Edition[/B] (available externally at [URL='https://mc-macro-mod.web.app/']mc-macro-mod.web.app[/URL]) unlocks:[/SIZE]
 [LIST]
-[*][B]While Loops:[/B] [CODE]while $health > 10[/CODE] ... [CODE]endwhile[/CODE]
-[*][B]If/Else Conditionals:[/B] [CODE]if $durability < 20[/CODE] ... [CODE]else[/CODE] ... [CODE]endif[/CODE]
-[*][B]Custom & Built-in Variables:[/B] Track user variables ([CODE]set[/CODE], [CODE]inc var [step][/CODE], [CODE]dec var [step][/CODE], [CODE]add[/CODE], [CODE]sub[/CODE], [CODE]mul[/CODE], [CODE]div[/CODE], [CODE]mod[/CODE], [CODE]random[/CODE]) or read player stats ([CODE]$xpos[/CODE], [CODE]$ypos[/CODE], [CODE]$zpos[/CODE], [CODE]$health[/CODE], [CODE]$maxhealth[/CODE], [CODE]$hunger[/CODE], [CODE]$level[/CODE], [CODE]$xp[/CODE], [CODE]$air[/CODE], [CODE]$facing[/CODE], [CODE]$gamemode[/CODE], [CODE]$durability[/CODE], etc.).
-[*][B]String & Array Functions:[/B] [CODE]concat[/CODE], [CODE]substr[/CODE], [CODE]length[/CODE], [CODE]lower[/CODE], [CODE]upper[/CODE], [CODE]arraypush[/CODE], [CODE]arraypop[/CODE], [CODE]arrayclear[/CODE], [CODE]arraycontains[/CODE].
+[*][B]Multi-Line .mcm Script Files & Subroutines ([CODE]{CALL}[/CODE]):[/B] Execute full multi-line script files from disk with subroutines, line reordering, and file I/O ([CODE]{READFILE}[/CODE], [CODE]{ARRAYSIZE}[/CODE], [CODE]{GETARRAY}[/CODE]).
+[*][B]18 Live Automated Event Triggers:[/B] Automatically execute macros in response to player events—low durability, low health, low hunger, inventory full, item pickup, slot change, world load, join server, death, respawn, dimension change, chat filter keyword match, GUI open/close, damage taken, low armor, low air, and low XP.
+[*][B]Advanced Script Logic:[/B] Programmatic [CODE]while[/CODE] loops ([CODE]break[/CODE]/[CODE]continue[/CODE]), [CODE]if[/CODE]/[CODE]else[/CODE] conditionals, custom & built-in variables ([CODE]$health[/CODE], [CODE]$hunger[/CODE], [CODE]$xpos[/CODE], etc.), string functions ([CODE]concat[/CODE], [CODE]substr[/CODE], [CODE]lower[/CODE], [CODE]upper[/CODE]), and array manipulation.
 [/LIST]
-
-[CENTER]----------------------------------------------------------------[/CENTER]
-
-[SIZE=5][B]🔒 License & Usage[/B][/SIZE]
-[SIZE=4]Copyright (c) 2026 westkevin12. All rights reserved. Licensed under a Commercial & Proprietary License. Unauthorized redistribution, modification for redistribution, or copying is strictly prohibited.[/SIZE]
