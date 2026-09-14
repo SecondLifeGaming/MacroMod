@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     group = 'com.github.secondlifegaming'
-    version = '0.0.6'
+    version = '0.1.0-beta'
 
     repositories {
         mavenCentral()
