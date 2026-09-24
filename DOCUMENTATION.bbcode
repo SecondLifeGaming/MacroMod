@@ -86,6 +86,8 @@ Multi-line scripts are stored as [I].mcm[/I] files under [I].minecraft/config/ma
 [*][CODE]{WAITUNTIL condition [timeout_ticks]}[/CODE] - Non-blocking wait until condition is true or optional timeout elapses.
 [*][CODE]{LOOKRANGE 87 93 -3 3}[/CODE] - Looks at a random spot within explicit min/max boundaries ([I]minYaw maxYaw minPitch maxPitch[/I]).
 [*][CODE]{LOOKRANDOM 90 0 3 3}[/CODE] (or [CODE]{LOOKVARIANCE}[/CODE]) - Looks at a random spot centered at ([I]90, 0[/I]) with ±3° yaw & pitch variance ([I]centerYaw centerPitch yawSpread pitchSpread[/I]).
+[*][CODE]{LOOKAT x y z [expectedBlock] [innerMargin]}[/CODE] - Smoothly rotates player camera using human WindMouse curves to face target coordinates ([I]x, y, z[/I]). Supports optional block validation (e.g. [I]furnace[/I], [I]blast_furnace[/I]) and inner margin depth ratio ([I]0.0[/I] to [I]0.45[/I]).
+[*][CODE]{VERIFYSCREEN interfaceName}[/CODE] - Verifies that active screen title or class matches [I]interfaceName[/I] (e.g. [I]furnace[/I], [I]chest[/I], [I]vault[/I]). Halts script if mismatched.
 [*][CODE]{WAIT 20 50}[/CODE] or [CODE]{WAITRANDOM 20 50}[/CODE] - Waits a random duration between 20 and 50 ticks.
 [*][CODE]$random[/CODE] / [CODE]$rand[/CODE] - Built-in variable returning a random float between 0.0 and 1.0.
 [/LIST]
@@ -96,7 +98,8 @@ Multi-line scripts are stored as [I].mcm[/I] files under [I].minecraft/config/ma
 [*][CODE]$xpos[/CODE], [CODE]$ypos[/CODE], [CODE]$zpos[/CODE] - Player's current coordinates.
 [*][CODE]$health[/CODE], [CODE]$maxhealth[/CODE] - Player's health stats.
 [*][CODE]$hunger[/CODE] - Player's food level (0-20).
-[*][CODE]$invfull[/CODE] - Returns 1 if inventory is full, 0 otherwise.
+[*][CODE]$invfull[/CODE], [CODE]$isfurnaceopen[/CODE], [CODE]$ischestopen[/CODE], [CODE]$iscraftingopen[/CODE], [CODE]$isanvilopen[/CODE] - Returns 1 if inventory or specific interface is open, 0 otherwise.
+[*][CODE]$screentitle[/CODE], [CODE]$screenclass[/CODE], [CODE]$containertype[/CODE] - Exact text title, class name, and menu type of active GUI screen.
 [*][CODE]$speed[/CODE] - Player's current speed.
 [*][CODE]$durability[/CODE] - Held item durability percentage (0-100).
 [*][CODE]$offhanddurability[/CODE], [CODE]$helmetdurability[/CODE], [CODE]$chestdurability[/CODE], [CODE]$leggingsdurability[/CODE], [CODE]$bootsdurability[/CODE] - Armor/offhand durability percentages.

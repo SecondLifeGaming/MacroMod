@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 @Plugin(
     id = "macromodserver",
     name = "MacroModServer",
-    version = "0.1.0-beta",
+    version = "0.1.1-beta",
     description = "Universal companion server plugin for MacroMod client permissions and policy control.",
     authors = {"SecondLifeGaming", "westkevin12"}
 )

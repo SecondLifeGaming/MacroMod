@@ -1,11 +1,22 @@
 [SIZE=6][B]MC Macro Mod - Release Notes[/B][/SIZE]
 
-[SIZE=5][B]Version 0.1.0-beta[/B][/SIZE]
+[SIZE=5][B]Version 0.1.1-beta (Minecraft 26.3)[/B][/SIZE]
 
-### 🛡️ Modrinth Policy Compliance & Protocol-Level Server Discovery
+### Minecraft 26.3 Refactor & 26.2 Retirement
 [LIST]
-[*][B]UI Tab Isolation:[/B] Dynamically hid [B]Event Triggers[/B] and [B]Scripts[/B] tabs in the Free Edition configuration screen.
-[*][B]Protocol-Level Server Discovery ([CODE]macromod:hello[/CODE]):[/B] Replaced outgoing chat command dispatch ([CODE]/macromod-info[/CODE]) with Fabric's native [CODE]ClientPlayNetworking[/CODE] custom payload packet ([CODE]macromod:hello[/CODE]), eliminating [CODE]Unknown command[/CODE] errors on standard servers.
+[*][B]Minecraft 26.3 Native Support:[/B] Fully refactored for Minecraft 26.3 and Fabric Loader 0.19+, compiled targeting Java 25. Updated input pipeline to [CODE]InputConstants.Key[/CODE] API and updated [CODE]GuiGraphicsExtractor[/CODE] rendering interfaces.
+[*][B]Retirement of Minecraft 26.2:[/B] Deprecated and retired backward compatibility for Minecraft 26.2 due to breaking Mojang/Fabric API shifts in 26.3.
+[/LIST]
+
+### Human WindMouse LOOKAT & Block Target Verification
+[LIST]
+[*][B]Human-like WindMouse Camera Movement ([CODE]{LOOKAT}[/CODE]):[/B] Upgraded [CODE]{LOOKAT}[/CODE] camera rotation from instant single-frame snapping to human-like [B]WindMouse[/B] physics (curved vector paths, gravity pull, wind disturbance noise, and target approach deceleration).
+[*][B]Target Block Type Validation ([CODE]expectedBlock[/CODE]):[/B] Supports optional block validation argument: [CODE]{LOOKAT x y z [expectedBlock]}[/CODE] (e.g. [CODE]{LOOKAT 100 64 -200 blast_furnace}[/CODE]). Validates block state before turning; halts macro if block type doesn't match.
+[*][B]Target Inner Depth Margin ([CODE]innerMargin[/CODE]):[/B] Supports optional inner margin depth ratio argument ([CODE]0.0[/CODE] to [CODE]0.45[/CODE], default [CODE]0.1[/CODE]). Calculates target vector inside the block face bounding box with natural Gaussian center weighting.
+[*][B]Crosshair Raycast Verification:[/B] Verifies that player crosshair raycast ([CODE]hitResult[/CODE]) has locked onto target [CODE]BlockPos[/CODE] before advancing script execution.
+[*][B]Screen & Interface Verification ([CODE]{VERIFYSCREEN}[/CODE]):[/B] Added [CODE]{VERIFYSCREEN expectedInterface}[/CODE] action command. Verifies active screen title or container type matches expected target (e.g. [I]furnace[/I], [I]chest[/I], [I]vault[/I]) before interacting.
+[*][B]Dynamic Interface State Variables:[/B] Added [CODE]$screentitle[/CODE], [CODE]$screenclass[/CODE], [CODE]$containertype[/CODE], [CODE]$isfurnaceopen[/CODE], [CODE]$ischestopen[/CODE], [CODE]$iscraftingopen[/CODE], [CODE]$isanvilopen[/CODE]. Upgraded [CODE]{GETCONTAINERTITLE varName}[/CODE] to dynamically read active GUI screen titles.
 [/LIST]
 
 [CENTER]----------------------------------------------------------------[/CENTER]
+

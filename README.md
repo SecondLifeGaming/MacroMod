@@ -38,12 +38,16 @@ Script macros can execute chat messages, server commands, or simulated player ac
 ### 2. Built-in Special Actions (Enclosed in `{}`)
 * **`{WAIT ticks}`** / **`{WAIT min max}`** / **`{WAITRANDOM min max}`**: Inserts a tick delay before the next step. If min/max is passed, waits a random tick duration in that range.
   - *Example*: `/home | {WAIT 20 50} | /say I have arrived!`
-* **`{LOOK yaw pitch}`**: Face a specific direction in-game.
+* **`{LOOK yaw pitch}`**: Instantly face a specific direction in-game (1-tick snap).
   - *Example*: `{LOOK 90 0}` (looks east at the horizon).
-* **`{LOOKRANGE minYaw maxYaw minPitch maxPitch}`**: Face a random direction bounded by min/max boundaries.
+* **`{HLOOK yaw pitch}`**: Smoothly rotates player camera using human WindMouse curves to target yaw & pitch.
+  - *Example*: `{HLOOK 90 0}`
+* **`{LOOKRANGE minYaw maxYaw minPitch maxPitch}`**: Instantly face a random direction bounded by min/max boundaries.
   - *Example*: `{LOOKRANGE 87 93 -3 3}` (random Yaw 87° to 93°, random Pitch -3° to +3°)
-* **`{LOOKRANDOM centerYaw centerPitch yawSpread pitchSpread}`**: Face a random direction centered at target angle with ±spread variance. (Aliases: `{LOOKVARIANCE}`, `{LOOKSPREAD}`, `{LOOKOFFSET}`).
+* **`{HLOOKRANGE minYaw maxYaw minPitch maxPitch}`**: Smoothly rotates player camera using human WindMouse curves to a random direction within min/max boundaries.
+* **`{LOOKRANDOM centerYaw centerPitch yawSpread pitchSpread}`**: Instantly face a random direction centered at target angle with ±spread variance. (Aliases: `{LOOKVARIANCE}`, `{LOOKSPREAD}`, `{LOOKOFFSET}`).
   - *Example*: `{LOOKRANDOM 90 0 3 3}` (center 90°, 0° with ±3° spread)
+* **`{HLOOKRANDOM centerYaw centerPitch yawSpread pitchSpread}`**: Smoothly rotates player camera using human WindMouse curves to a random direction centered at target angle with ±spread variance. (Aliases: `{HLOOKVARIANCE}`, `{HLOOKSPREAD}`).
 * **`{LEFTCLICK}`**: Simulates a left-click / attack once.
   - *Example*: `{LEFTCLICK} | {WAIT 10} | {LEFTCLICK}`
 * **`{RIGHTCLICK}`**: Simulates a right-click / item-use once.
@@ -61,8 +65,8 @@ Script macros can execute chat messages, server commands, or simulated player ac
   - *Example*: `{ECHO Durability low!}`
 * **`{SLOT slot}` / `{HOTBAR slot}`**: Instantly switches selected hotbar slot (0 to 8).
   - *Example*: `{SLOT 0}` (switches to slot 1).
-* **`{LOOKAT x y z}`**: Automatically turns player camera to face specific 3D coordinates.
-  - *Example*: `{LOOKAT 100 64 -200}`
+* **`{LOOKAT x y z [expectedBlock] [innerMargin]}`**: Turns player camera using human WindMouse curves to target block coordinates `(x, y, z)`. Supports optional block validation (e.g., `furnace`, `blast_furnace`) and inner margin depth offset (`0.0` to `0.45`).
+  - *Example*: `{LOOKAT 100 64 -200}` or `{LOOKAT 100 64 -200 blast_furnace 0.1}`
 * **`{DROP slot}`**: Drops the item in the specified inventory/container slot.
   - *Example*: `{DROP 0}`
 * **`{DROPALL}`**: Drops all items across inventory slots.
@@ -88,8 +92,9 @@ Script macros can execute chat messages, server commands, or simulated player ac
 * **`{READFILE "file.txt" arrayVar}`**: Reads lines from a file in `config/macromod/scripts/` into a named array variable.
 * **`{ARRAYSIZE arrayVar targetVar}`**: Stores the number of elements in an array into a target variable.
 * **`{GETARRAY arrayVar index targetVar}`**: Retrieves an element from an array by index into a target variable.
+* **`{VERIFYSCREEN interfaceName}`**: Verifies that the active GUI screen title or class matches `interfaceName` (e.g. `furnace`, `chest`, `vault`). If mismatched, halts script execution to prevent mis-clicks.
 * **`{WAITUNTIL condition [timeout_ticks]}`**: Non-blocking yield that parks interpreter execution until condition evaluates to true or optional timeout (default 200 ticks) elapses.
-  - *Example*: `{WAITUNTIL $containeropen == 1 100}`
+  - *Example*: `{WAITUNTIL $isfurnaceopen == 1 100}` or `{WAITUNTIL $screentitle == "Blast Furnace" 100}`
 
 ### 3. Awaiting User Input (Placeholders)
 You can pause macro execution to request input from the user:
@@ -115,7 +120,7 @@ For longer, more complex automation, you can create multi-line scripts inside th
   - **`add varName val` / `sub varName val` / `mul varName val` / `div varName val` / `mod varName val`**: Native arithmetic instructions.
   - **String Functions**: `concat(targetVar, str1, str2)`, `substr(targetVar, start, length)`, `length(targetVar, target)`, `lower(var)`, `upper(var)`.
   - **Array Functions**: `arraypush(arrayVar, value)`, `arraypop(arrayVar, [targetVar])`, `arrayclear(arrayVar)`, `arraycontains(arrayVar, value, targetVar)`.
-  - *Read-only player & world variables*: `$isburning`, `$onfire`, `$isswimming`, `$eyeheight`, `$health`, `$maxhealth`, `$xpos`, `$ypos`, `$zpos`, `$hunger`, `$invfull`, `$speed`, `$durability`, `$offhanddurability`, `$helmetdurability`, `$chestdurability`, `$leggingsdurability`, `$bootsdurability`, `$hasgui`, `$containeropen`, `$targettype` (0=Air, 1=Block, 2=Entity), `$targetdist`, `$targetx`, `$targety`, `$targetz`, `$targetname`, `$targethealth`, `$targetmaxhealth`, `$iteminhand`, `$freeinventory`, `$israining`, `$isnight`, `$blockbelow`, `$biome`, `$dimension`, `$server`, `$fps`, `$ping`, `$yaw`, `$pitch`, `$slot`, `$mainhand`, `$offhand`, `$time`, `$light`, `$level`, `$xp`, `$xpprogress`, `$xppercent`, `$air`, `$oxygen`, `$maxair`, `$saturation`, `$armor`, `$isthundering`, `$underwater`, `$onground`, `$isriding`, `$issneaking`, `$issprinting`, `$isflying`, `$facing`, `$direction`, `$gamemode`, `$difficulty`, `$weather`, `$playername`, `$username`, `$random` / `$rand`.
+  - *Read-only player & world variables*: `$isburning`, `$onfire`, `$isswimming`, `$eyeheight`, `$health`, `$maxhealth`, `$xpos`, `$ypos`, `$zpos`, `$hunger`, `$invfull`, `$speed`, `$durability`, `$offhanddurability`, `$helmetdurability`, `$chestdurability`, `$leggingsdurability`, `$bootsdurability`, `$hasgui`, `$containeropen`, `$isfurnaceopen`, `$ischestopen`, `$iscraftingopen`, `$isanvilopen`, `$screentitle`, `$screenclass`, `$containertype`, `$targettype` (0=Air, 1=Block, 2=Entity), `$targetdist`, `$targetx`, `$targety`, `$targetz`, `$targetname`, `$targethealth`, `$targetmaxhealth`, `$iteminhand`, `$freeinventory`, `$israining`, `$isnight`, `$blockbelow`, `$biome`, `$dimension`, `$server`, `$fps`, `$ping`, `$yaw`, `$pitch`, `$slot`, `$mainhand`, `$offhand`, `$time`, `$light`, `$level`, `$xp`, `$xpprogress`, `$xppercent`, `$air`, `$oxygen`, `$maxair`, `$saturation`, `$armor`, `$isthundering`, `$underwater`, `$onground`, `$isriding`, `$issneaking`, `$issprinting`, `$isflying`, `$facing`, `$direction`, `$gamemode`, `$difficulty`, `$weather`, `$playername`, `$username`, `$random` / `$rand`.
 * **Calling Scripts (Subroutines)**:
   - **From an Inline Macro / Keybind**: Use `{CALL script_name}` (e.g. `{CALL test}`).
   - **From inside another script**: Use `call script_name` on its own line (e.g. `call test`).
