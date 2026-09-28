@@ -1,22 +1,11 @@
 [SIZE=6][B]MC Macro Mod - Release Notes[/B][/SIZE]
 
-[SIZE=5][B]Version 0.1.1-beta (Minecraft 26.3)[/B][/SIZE]
+[SIZE=5][B]Version 0.1.2-beta (Minecraft 26.3)[/B][/SIZE]
 
-### Minecraft 26.3 Refactor & 26.2 Retirement
+### Modular Free vs Premium Compilation Architecture
 [LIST]
-[*][B]Minecraft 26.3 Native Support:[/B] Fully refactored for Minecraft 26.3 and Fabric Loader 0.19+, compiled targeting Java 25. Updated input pipeline to [CODE]InputConstants.Key[/CODE] API and updated [CODE]GuiGraphicsExtractor[/CODE] rendering interfaces.
-[*][B]Retirement of Minecraft 26.2:[/B] Deprecated and retired backward compatibility for Minecraft 26.2 due to breaking Mojang/Fabric API shifts in 26.3.
+[*][B]Compile-Time Source Set Separation:[/B] Restructured codebase into decoupled Gradle source sets ([CODE]src/main[/CODE], [CODE]src/free[/CODE], and [CODE]src/premium[/CODE]). The Free edition contains zero paywalled classes or event loop bytecodes.
+[*][B]Modrinth Terms of Service Compliance:[/B] Physically excluded proprietary feature classes ([CODE]ScriptInterpreter[/CODE], [CODE]PremiumEventTriggers[/CODE], [CODE]ScriptLibrary[/CODE], etc.) from the free JAR for Modrinth compliance.
+[*][B]Modern PaperMC Adventure Component API:[/B] Refactored [CODE]MacroModServerPlugin.java[/CODE] to use Kyori Adventure Components ([CODE]Component[/CODE], [CODE]NamedTextColor[/CODE]) and [CODE]getPluginMeta()[/CODE], removing all deprecated Bukkit ChatColor references.
+[*][B]Performance & Memory Optimizations:[/B] Optimized [CODE]InlineScriptInterpreter[/CODE] regex splitting using pre-compiled static patterns, improved execution flow with [CODE]Optional<Boolean>[/CODE], and eliminated unused imports/fields across all subprojects.
 [/LIST]
-
-### Human WindMouse LOOKAT & Block Target Verification
-[LIST]
-[*][B]Human-like WindMouse Camera Movement ([CODE]{LOOKAT}[/CODE]):[/B] Upgraded [CODE]{LOOKAT}[/CODE] camera rotation from instant single-frame snapping to human-like [B]WindMouse[/B] physics (curved vector paths, gravity pull, wind disturbance noise, and target approach deceleration).
-[*][B]Target Block Type Validation ([CODE]expectedBlock[/CODE]):[/B] Supports optional block validation argument: [CODE]{LOOKAT x y z [expectedBlock]}[/CODE] (e.g. [CODE]{LOOKAT 100 64 -200 blast_furnace}[/CODE]). Validates block state before turning; halts macro if block type doesn't match.
-[*][B]Target Inner Depth Margin ([CODE]innerMargin[/CODE]):[/B] Supports optional inner margin depth ratio argument ([CODE]0.0[/CODE] to [CODE]0.45[/CODE], default [CODE]0.1[/CODE]). Calculates target vector inside the block face bounding box with natural Gaussian center weighting.
-[*][B]Crosshair Raycast Verification:[/B] Verifies that player crosshair raycast ([CODE]hitResult[/CODE]) has locked onto target [CODE]BlockPos[/CODE] before advancing script execution.
-[*][B]Screen & Interface Verification ([CODE]{VERIFYSCREEN}[/CODE]):[/B] Added [CODE]{VERIFYSCREEN expectedInterface}[/CODE] action command. Verifies active screen title or container type matches expected target (e.g. [I]furnace[/I], [I]chest[/I], [I]vault[/I]) before interacting.
-[*][B]Dynamic Interface State Variables:[/B] Added [CODE]$screentitle[/CODE], [CODE]$screenclass[/CODE], [CODE]$containertype[/CODE], [CODE]$isfurnaceopen[/CODE], [CODE]$ischestopen[/CODE], [CODE]$iscraftingopen[/CODE], [CODE]$isanvilopen[/CODE]. Upgraded [CODE]{GETCONTAINERTITLE varName}[/CODE] to dynamically read active GUI screen titles.
-[/LIST]
-
-[CENTER]----------------------------------------------------------------[/CENTER]
-

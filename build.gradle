@@ -34,6 +34,27 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+sourceSets {
+    free {
+        java {
+            srcDirs = ['src/free/java']
+        }
+        compileClasspath += sourceSets.main.output + configurations.compileClasspath
+        runtimeClasspath += sourceSets.main.output + configurations.runtimeClasspath
+    }
+    premium {
+        java {
+            srcDirs = ['src/premium/java']
+        }
+        compileClasspath += sourceSets.main.output + configurations.compileClasspath
+        runtimeClasspath += sourceSets.main.output + configurations.runtimeClasspath
+    }
+    test {
+        compileClasspath += sourceSets.premium.output + sourceSets.main.output
+        runtimeClasspath += sourceSets.premium.output + sourceSets.main.output
+    }
+}
+
 test {
     useJUnitPlatform()
 }
@@ -56,28 +77,37 @@ java {
     targetCompatibility = JavaVersion.VERSION_25
 }
 
-def generateBuildConfig = tasks.register("generateBuildConfig") {
-    def isPremium = project.hasProperty("premium") ? project.property("premium").toString().toBoolean() : false
-    inputs.property("premium", isPremium)
-    def outputDir = file("$buildDir/generated/sources/buildconfig/java/main/com/github/secondlifegaming/macromod")
-    outputs.dir(outputDir)
-    doLast {
-        outputDir.mkdirs()
-        new File(outputDir, "BuildConfig.java").text = """package com.github.secondlifegaming.macromod;
-
-public class BuildConfig {
-    public static final boolean IS_PREMIUM = ${isPremium};
+tasks.register('buildFreeJar', Jar) {
+    dependsOn compileJava, compileFreeJava, processResources
+    archiveFileName = "${project.archives_base_name}-${project.version}-free.jar"
+    from sourceSets.main.output
+    from sourceSets.free.output
 }
-"""
+
+tasks.register('buildPremiumJar', Jar) {
+    dependsOn compileJava, compilePremiumJava, processResources
+    archiveFileName = "${project.archives_base_name}-${project.version}-premium.jar"
+    from sourceSets.main.output
+    from sourceSets.premium.output
+}
+
+tasks.register('buildAll') {
+    dependsOn buildFreeJar, buildPremiumJar
+    if (findProject(':macromod-server:common') != null) {
+        dependsOn ':macromod-server:common:build'
     }
 }
 
-sourceSets.main.java.srcDir "$buildDir/generated/sources/buildconfig/java/main"
-compileJava.dependsOn generateBuildConfig
-sourcesJar.dependsOn generateBuildConfig
-
-jar {
-    def edition = project.hasProperty("premium") && project.property("premium").toString().toBoolean() ? "premium" : "free"
-    archiveFileName.set("${project.archives_base_name}-${project.version}-${edition}.jar")
+tasks.register('copyToRelease', Copy) {
+    dependsOn buildAll
+    from 'build/libs/macromod-' + project.version + '-free.jar'
+    from 'build/libs/macromod-' + project.version + '-premium.jar'
+    from('macromod-server/common/build/libs/common-' + project.version + '.jar') {
+        rename { "macromod-server-${project.version}.jar" }
+    }
+    into 'release'
 }
+
+build.finalizedBy copyToRelease
+build.dependsOn buildAll
 

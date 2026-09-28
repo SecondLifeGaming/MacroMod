@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.github.secondlifegaming.macromod.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "KeyboardMixin",
+    "MouseMixin",
+    "ChatMixin",
+    "InventoryMixin",
+    "WorldLoadMixin",
+    "MinecraftAccessor",
+    "KeyboardHandlerAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -2,9 +2,9 @@ package com.github.secondlifegaming.macromod.server;
 
 import com.github.secondlifegaming.macromod.server.common.ServerPolicy;
 import com.google.gson.Gson;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,12 +14,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.charset.StandardCharsets;
 
-public class MacroModServerPlugin extends JavaPlugin implements Listener, CommandExecutor {
+/**
+ * Bukkit/Spigot/Paper companion server plugin providing permission control and policy synchronization.
+ */
+public class MacroModServerPlugin extends JavaPlugin implements Listener {
 
     public static final String POLICY_CHANNEL = "macromod:policy";
     private final Gson gson = new Gson();
     private ServerPolicy policy = new ServerPolicy();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -28,25 +34,39 @@ public class MacroModServerPlugin extends JavaPlugin implements Listener, Comman
         getServer().getMessenger().registerOutgoingPluginChannel(this, POLICY_CHANNEL);
         getServer().getPluginManager().registerEvents(this, this);
 
-        if (getCommand("macromod") != null) {
-            getCommand("macromod").setExecutor(this);
+        org.bukkit.command.PluginCommand cmd = getCommand("macromod");
+        if (cmd != null) {
+            cmd.setExecutor(this);
         }
 
         getLogger().info("MacroModServer companion plugin enabled (Channel: " + POLICY_CHANNEL + ").");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDisable() {
         getServer().getMessenger().unregisterOutgoingPluginChannel(this, POLICY_CHANNEL);
         getLogger().info("MacroModServer companion plugin disabled.");
     }
 
+    /**
+     * Handles player join events to send initial policy payload.
+     *
+     * @param event player join event
+     */
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         sendPolicy(player);
     }
 
+    /**
+     * Sends active permission policy payload to a target player.
+     *
+     * @param player target player
+     */
     public void sendPolicy(Player player) {
         try {
             ServerPolicy effectivePolicy = getEffectivePolicy(player);
@@ -58,6 +78,12 @@ public class MacroModServerPlugin extends JavaPlugin implements Listener, Comman
         }
     }
 
+    /**
+     * Resolves effective server policy, querying LuckPerms metadata if present.
+     *
+     * @param player target player
+     * @return resolved {@link ServerPolicy} instance
+     */
     private ServerPolicy getEffectivePolicy(Player player) {
         if (getServer().getPluginManager().getPlugin("LuckPerms") == null) {
             return this.policy;
@@ -92,25 +118,36 @@ public class MacroModServerPlugin extends JavaPlugin implements Listener, Comman
         }
     }
 
+    /**
+     * Parses a boolean LuckPerms metadata entry.
+     */
     private static boolean parseMetaBool(java.lang.reflect.Method getMetaVal, Object metaData, String key, boolean def) {
         try {
             String val = (String) getMetaVal.invoke(metaData, key);
             return val != null ? Boolean.parseBoolean(val) : def;
-        } catch (Exception _) {
+        } catch (Exception e) {
+            org.bukkit.Bukkit.getLogger().fine(e.getMessage());
             return def;
         }
     }
 
+    /**
+     * Parses an integer LuckPerms metadata entry.
+     */
     private static int parseMetaInt(java.lang.reflect.Method getMetaVal, Object metaData, String key, int def) {
         try {
             String val = (String) getMetaVal.invoke(metaData, key);
             if (val == null) return def;
             return Integer.parseInt(val);
-        } catch (Exception _) {
+        } catch (Exception e) {
+            org.bukkit.Bukkit.getLogger().fine(e.getMessage());
             return def;
         }
     }
 
+    /**
+     * Loads base policy parameters from config.yml.
+     */
     private void loadPolicyFromConfig() {
         policy = new ServerPolicy();
         policy.version = getConfig().getInt("version", 1);
@@ -140,21 +177,27 @@ public class MacroModServerPlugin extends JavaPlugin implements Listener, Comman
         policy.allowTriggerLowXp = getConfig().getBoolean("allowTriggerLowXp", true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length > 0 && "reload".equalsIgnoreCase(args[0])) {
-            reloadConfig();
-            loadPolicyFromConfig();
-            sender.sendMessage(ChatColor.GREEN + "[MacroModServer] Configuration reloaded successfully.");
+        if (args.length > 0) {
+            if ("reload".equalsIgnoreCase(args[0])) {
+                reloadConfig();
+                loadPolicyFromConfig();
+                sender.sendMessage(Component.text("[MacroModServer] Configuration reloaded successfully.", NamedTextColor.GREEN));
 
-            for (Player player : getServer().getOnlinePlayers()) {
-                sendPolicy(player);
+                for (Player player : getServer().getOnlinePlayers()) {
+                    sendPolicy(player);
+                }
+                return true;
             }
-            return true;
+            return false;
         }
 
-        sender.sendMessage(ChatColor.GOLD + "MacroModServer v" + getDescription().getVersion() + " companion plugin.");
-        sender.sendMessage(ChatColor.YELLOW + "Usage: /macromod reload - Reload policy config and re-sync online clients.");
+        sender.sendMessage(Component.text("MacroModServer v" + getPluginMeta().getVersion() + " companion plugin.", NamedTextColor.GOLD));
+        sender.sendMessage(Component.text("Usage: /macromod reload - Reload policy config and re-sync online clients.", NamedTextColor.YELLOW));
         return true;
     }
 }

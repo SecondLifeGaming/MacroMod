@@ -19,8 +19,8 @@ run/
 runClient/
 runServer/
 
-# Client Mod Source Code & Premium Jars
-/src/
+# Premium source code & output JARs
+src/premium/
 *premium.jar
 hs_err_*.log
 replay_*.log

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "macromod",
+  "version": "0.1.2-beta",
+  "name": "MacroMod",
+  "description": "A modern client-side macro keybinding utility.",
+  "authors": [
+    "westkevin12"
+  ],
+  "contact": {
+    "homepage": "https://github.com/westkevin12/MacroMod",
+    "sources": "https://github.com/westkevin12/MacroMod"
+  },
+  "license": "Proprietary",
+  "icon": "assets/macromod/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.github.secondlifegaming.macromod.MacroModClient"
+    ],
+    "modmenu": [
+      "com.github.secondlifegaming.macromod.gui.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "macromod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": ">=26.2",
+    "fabric-api": "*"
+  }
+}

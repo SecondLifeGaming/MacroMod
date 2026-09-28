@@ -1,5 +1,8 @@
 package com.github.secondlifegaming.macromod.server.common;
 
+/**
+ * Server policy configuration data model exchanged over macromod:policy plugin channel.
+ */
 public class ServerPolicy {
     public int version = 1;
     public boolean allowMovement = true;
